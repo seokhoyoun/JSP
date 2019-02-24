@@ -58,6 +58,22 @@ public class MemberDao {
 		}
 		return member;
 	}
+
+	public String checkId(Connection conn, String userid) {
+		String id = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = "select id from member";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return null;
+	}
 	
 	
 }

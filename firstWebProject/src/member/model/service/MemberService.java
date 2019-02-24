@@ -19,4 +19,10 @@ public class MemberService {
 		close(conn);
 		return member;
 	}
+	
+	public String checkId(String userid) {
+		Connection conn = getConnection();
+		String id = mdao.checkId(conn, userid);
+		return id;
+	}
 }
