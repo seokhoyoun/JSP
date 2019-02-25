@@ -2,32 +2,45 @@ package member.model.vo;
 
 import java.sql.Date;
 
+//USERID	VARCHAR2(15 BYTE)
+//USERPWD	VARCHAR2(15 BYTE)
+//USERNAME	VARCHAR2(20 BYTE)
+//GENDER	CHAR(1 BYTE)
+//AGE	NUMBER(3,0)
+//PHONE	VARCHAR2(13 BYTE)
+//EMAIL	VARCHAR2(30 BYTE)
+//HOBBY	VARCHAR2(100 BYTE)
+//ETC	VARCHAR2(1000 BYTE)
+//ENROLL_DATE	DATE
+//LASTMODIFIED	DATE
 public class Member implements java.io.Serializable{
-
-	private static final long serialVersionUID = -4952932019676617041L;
 	
-	private String userId;
-	private String userPwd;
-	private String userName;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6233268739315942899L;
+	
+	private String userid;
+	private String userpwd;
+	private String username;
 	private String gender;
 	private int age;
 	private String phone;
 	private String email;
 	private String hobby;
 	private String etc;
-	private Date enrollDate; // 등록일
-	private Date lastModified; // 최종 수정일
+	private Date enrollDate;
+	private Date lastModified;
 	
 	public Member() {
-		
 	}
 
-	public Member(String userId, String userPwd, String userName, String gender, int age, String phone, String email,
+	public Member(String userid, String userpwd, String username, String gender, int age, String phone, String email,
 			String hobby, String etc, Date enrollDate, Date lastModified) {
 		super();
-		this.userId = userId;
-		this.userPwd = userPwd;
-		this.userName = userName;
+		this.userid = userid;
+		this.userpwd = userpwd;
+		this.username = username;
 		this.gender = gender;
 		this.age = age;
 		this.phone = phone;
@@ -38,28 +51,28 @@ public class Member implements java.io.Serializable{
 		this.lastModified = lastModified;
 	}
 
-	public String getUserId() {
-		return userId;
+	public String getUserid() {
+		return userid;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setUserid(String userid) {
+		this.userid = userid;
 	}
 
-	public String getUserPwd() {
-		return userPwd;
+	public String getUserpwd() {
+		return userpwd;
 	}
 
-	public void setUserPwd(String userPwd) {
-		this.userPwd = userPwd;
+	public void setUserpwd(String userpwd) {
+		this.userpwd = userpwd;
 	}
 
-	public String getUserName() {
-		return userName;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getGender() {
@@ -128,21 +141,13 @@ public class Member implements java.io.Serializable{
 
 	@Override
 	public String toString() {
-		return "${" + userId + ", " + userPwd + ", " + userName + ", " + gender + ", " + age + ", " + phone + ", " + email
+		return userid + ", " + userpwd + ", " + username + ", " + gender + ", " + age + ", " + phone + ", " + email
 				+ ", " + hobby + ", " + etc + ", " + enrollDate + ", " + lastModified;
 	}
 	
 	
-//	USERID	VARCHAR2(15 BYTE)
-//	USERPWD	VARCHAR2(15 BYTE)
-//	USERNAME	VARCHAR2(20 BYTE)
-//	GENDER	CHAR(1 BYTE)
-//	AGE	NUMBER(3,0)
-//	PHONE	VARCHAR2(13 BYTE)
-//	EMAIL	VARCHAR2(30 BYTE)
-//	HOBBY	VARCHAR2(100 BYTE)
-//	ETC	VARCHAR2(1000 BYTE)
-//	ENROLL_DATE	DATE
-//	LASTMODIFIED	DATE
+	
+	
+	
 	
 }
