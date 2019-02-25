@@ -11,7 +11,9 @@
 		<h1>HI SEOKHO!</h1>
 	</header>
 	<div class="top-menu">
-		<input type="button" class="join__button" value="회원가입" onclick="location.href='views/joinMember.jsp'">
+		<ul>
+			<li><a href="views/member/joinMember.jsp">회원 가입</a></li>
+		</ul>
 	</div>
 	<div class="nav-menu"></div>
 	<div class="main"></div>

@@ -19,4 +19,8 @@ public class MemberService {
 		close(conn);
 		return member;
 	}
+	
+	public String checkID(String id) {
+		return null;
+	}
 }
