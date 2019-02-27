@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="member.model.vo.Member"%>
+
+<%
+	Member loginUser = (Member)session.getAttribute("loginUser");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,5 +12,53 @@
 </head>
 <body>
 <h1>firstWebProject</h1>
+<hr>
+<% if(loginUser == null){ // 로그인 하지 않은 상태%>
+<div>
+	<form action="/first/login" method="post">
+		<table>
+			<tr>
+				<th> 아이디 : </th>
+				<td><input type="text" name="userid" required></td>
+			</tr>
+			<tr>
+				<th>암 호 :</th>
+				<td><input type="password" name="userpwd" required></td>
+			</tr>
+			<tr>
+				<th colspan="2">
+					<input type="submit" value="로그인">
+					&nbsp; &nbsp;
+					<a href="">회원 가입</a>
+				</th>
+			</tr>
+			<tr>
+				<th colspan="2">
+					<a href="">아이디 찾기</a>
+					&nbsp; &nbsp;
+					<a href="">암호 찾기</a>
+				</th>
+			</tr>
+		</table>
+	</form>
+</div>
+<% } else { // 로그인 상태 시 처리%>
+<div>
+		<table>
+			<tr>
+				<th><%= loginUser.getUsername() %>님</th>
+				<td><a href="/first/logout">로그아웃</a></td>
+			</tr>
+			
+			<tr>
+				<th colspan="2">
+					<a href="">쪽지</a>
+					&nbsp; &nbsp;
+					<a href="">내 정보 보기</a>
+				</th>
+			</tr>
+		</table>
+</div>
+<% } %>
 </body>
 </html>
