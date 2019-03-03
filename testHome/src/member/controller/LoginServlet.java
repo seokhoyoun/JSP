@@ -33,22 +33,20 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		// 로그인 처리용 컨트롤러
+		
 		String userId = request.getParameter("userid");
 		String userPwd = request.getParameter("userpwd");
-		
-		Member loginMember = new MemberService().selectLogin(userId, userPwd);
+		System.out.println(userId +"  "+userPwd);
+		Member loginUser = new MemberService().selectLogin(userId, userPwd);
+		System.out.println(loginUser);
 		response.setContentType("text/html; charset=utf-8");
-		if(loginMember != null) {
-			// 로그인 성공
+		if(loginUser != null) {
 			HttpSession session = request.getSession();
-			session.setAttribute("loginMember", loginMember);
+			session.setAttribute("loginUser", loginUser);
 			response.sendRedirect("/testh/index.jsp");
-			
 		} else {
-			// 로그인 실패
-			RequestDispatcher view = request.getRequestDispatcher("views/member/memberError.jsp");
-			request.setAttribute("message",	"로그인 실패");
+			RequestDispatcher view = request.getRequestDispatcher("index.jsp");
+			request.setAttribute("message", "아이디가 존재하지 않거나 비밀번호가 다릅니다.");
 			view.forward(request, response);
 		}
 	}

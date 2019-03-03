@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="member.model.vo.Member"%>
-<% Member loginMember = (Member)session.getAttribute("loginMember"); %>
+<% 
+	Member loginUser = (Member)session.getAttribute("loginUser");
+	String message = (String) request.getAttribute("message");
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,16 +21,25 @@
         <div class="header__square" onclick="toggleNav()">● ● ●</div>
         <div class="header__topbar">
             <ul>
-                <li><a href="">도그하우스 소개</a></li>
-                <li><a href="">FAQ</a></li>
-                <li><a href="">1:1 문의하기</a></li>
-                <li><a href="">이용 방법</a></li>
+                <li><span>도그하우스 소개</span></li>
+                <li><span>FAQ</span></li>
+                <li><span>1:1 문의하기</span></li>
+                <li><span>이용 방법</span></li>
             </ul>
+            <%if(loginUser == null) { %>
             <ul>
-                <li><a href="">로그인</a></li>
-                <li><a href="">회원가입</a></li>
-                <li><a href="">아이디 비밀번호 찾기</a></li>
+                <li><span id="loginBtn">로그인</span></li>
+                <li><span id="registerBtn">회원가입</span></li>
+                <li><span>아이디 / 비밀번호 찾기</span></li>
             </ul>
+            <%} else {%>
+            <ul> 
+                <li><span><%= loginUser.getUserName()%>님</span></li>
+                <li><span><a href="/testh/logout">로그아웃</a></span></li>
+                <li><span>쪽지</span></li>
+                <li><span>내 정보 보기</span></li>
+            </ul>
+            <% } %>
         </div>
     </header>
 
@@ -55,6 +67,44 @@
                 <span class="navigation__arrow">←</span>
                 <span class="navigation__pagess">1/4</span>
                 <span class="navigation__arrow">→</span></div>
+        </div>
+        <div class="login-box">
+            <img src="resources/images/usericon.png" class="avatar">
+            <span class="close">x</span>
+            <h1>Login Here</h1>
+            <form action="/testh/login" method="POST">
+                <p>User ID</p>
+                <input type="text" name="userid" placeholder="아이디 입력">
+                <p>Password</p>
+                <input type="password" name="userpwd" placeholder="비밀번호 입력">
+                <input type="submit" name="submit" value="Login">
+                <a href="#">Forget Password</a>
+                <% if(message != null) { %>
+                <p><%= message %></p>
+                <% } %>
+            </form>
+        </div>
+        <div class="register-box">
+            <span class="close">x</span>
+            <form action="/testh/minsert" method="POST">
+                <p>User ID</p>
+                <input type="text" name="userid" placeholder="아이디 입력" required>&nbsp;
+                <input type="submit" name="submit" value="Check ID">
+                <p>Password</p>
+                <input type="password" name="userpwd" placeholder="비밀번호 입력" required>
+                <p>Repeat Password </p>
+                <input type="password" name="userpwd2" placeholder="비밀번호 확인" required>
+                <p>Gender</p>
+                <input type="radio" name="gender" value="M"> 남자
+                        &nbsp; <input type="radio" name="gender" value="F"> 여자
+                <p>Age</p>
+                <input type="number" name="age" min="0" max="100" required placeholder="나이" >
+                <p>Phone</p>
+                <input type="tel" name="phone" placeholder="핸드폰" required>
+                <p>Email</p>
+                <input type="email" name="email" placeholder="이메일" required>&nbsp;
+                <input type="submit" value="가입하기">
+            </form>
         </div>
     </main>
     <script src="resources/js/main.js"></script>

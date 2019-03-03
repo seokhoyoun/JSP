@@ -28,3 +28,28 @@ let toggleNav = function(){
         toggleNavStatus = false;
     }
 }
+
+const loginBtn = document.querySelector('#loginBtn');
+const registerBtn = document.querySelector('#registerBtn');
+const loginBox = document.querySelector('.login-box');
+const registerBox = document.querySelector('.register-box');
+
+loginBtn.addEventListener('click',popUpLoginBox);
+
+function popUpLoginBox(){
+    loginBox.style.display = "block";
+}
+
+registerBtn.addEventListener('click', function(){
+    registerBox.style.display = "flex";
+})
+
+const xBtns = document.querySelectorAll('.close');
+for(let i = 0; i < xBtns.length; i++){
+    xBtns[i].addEventListener('click', function(){
+        this.parentNode.style.display = "none";
+    });
+}
+
+
+
