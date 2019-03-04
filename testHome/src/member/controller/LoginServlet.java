@@ -45,7 +45,7 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("loginUser", loginUser);
 			response.sendRedirect("/testh/index.jsp");
 		} else {
-			RequestDispatcher view = request.getRequestDispatcher("index.jsp");
+			RequestDispatcher view = request.getRequestDispatcher("/index.jsp");
 			request.setAttribute("message", "아이디가 존재하지 않거나 비밀번호가 다릅니다.");
 			view.forward(request, response);
 		}

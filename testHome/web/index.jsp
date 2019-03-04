@@ -14,7 +14,6 @@
     <title>Practice Eight</title>
     <link rel="stylesheet" href="resources/css/style.css">
 </head>
-
 <body>
 
     <header class="header">
@@ -72,15 +71,16 @@
             <img src="resources/images/usericon.png" class="avatar">
             <span class="close">x</span>
             <h1>Login Here</h1>
-            <form action="/testh/login" method="POST">
+           
+             <form action="/testh/login" method="POST">
                 <p>User ID</p>
                 <input type="text" name="userid" placeholder="아이디 입력">
                 <p>Password</p>
                 <input type="password" name="userpwd" placeholder="비밀번호 입력">
-                <input type="submit" name="submit" value="Login">
-                <a href="#">Forget Password</a>
+                <input type="submit" name="submit" value="Login" id="loginSubmit">
+                <a href="#">Forget Password</a><hr>
                 <% if(message != null) { %>
-                <p><%= message %></p>
+                <p id="message"><%= message %></p>
                 <% } %>
             </form>
         </div>
