@@ -12,7 +12,12 @@
 </head>
 <body>
 <h1>firstWebProject</h1>
-<hr>
+<% if(loginUser != null && loginUser.getUserid().equals("admin")){ %>
+<%@ include file="views/common/adminHeader.jsp" %>
+<%} else { %>
+<%@ include file="views/common/header.jsp" %>
+<%} %>
+<hr style="clear:left;">
 <% if(loginUser == null){ // 로그인 하지 않은 상태%>
 <div>
 	<form action="/first/login" method="post">
@@ -60,5 +65,7 @@
 		</table>
 </div>
 <% } %>
+<hr>
+<%@ include file="views/common/footer.jsp" %>
 </body>
 </html>

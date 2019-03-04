@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+
 import static common.JDBCTemplate.*;
 
 import member.model.vo.Member;
@@ -15,7 +18,7 @@ public class MemberDao {
 	}
 
 	public Member selectLogin(Connection conn, String userId, String userPwd) {
-		Member loginUser = null;
+		Member member = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
@@ -39,18 +42,18 @@ public class MemberDao {
 			
 			rset = pstmt.executeQuery();
 			if(rset.next()) {
-				loginUser = new Member();
-				loginUser.setUserid(userId);
-				loginUser.setUserpwd(userPwd);
-				loginUser.setUsername(rset.getString(3));
-				loginUser.setGender(rset.getString(4));
-				loginUser.setAge(rset.getInt(5));
-				loginUser.setPhone(rset.getString(6));
-				loginUser.setEmail(rset.getString(7));
-				loginUser.setHobby(rset.getString(8));
-				loginUser.setEtc(rset.getString(9));
-				loginUser.setEnrollDate(rset.getDate(10));
-				loginUser.setLastModified(rset.getDate(11));
+				member = new Member();
+				member.setUserid(userId);
+				member.setUserpwd(userPwd);
+				member.setUsername(rset.getString(3));
+				member.setGender(rset.getString(4));
+				member.setAge(rset.getInt(5));
+				member.setPhone(rset.getString(6));
+				member.setEmail(rset.getString(7));
+				member.setHobby(rset.getString(8));
+				member.setEtc(rset.getString(9));
+				member.setEnrollDate(rset.getDate(10));
+				member.setLastModified(rset.getDate(11));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -59,7 +62,7 @@ public class MemberDao {
 			close(pstmt);
 		}
 		
-		return loginUser;
+		return member;
 	}
 
 	public int selectCheckId(Connection conn, String userId) {
@@ -124,8 +127,127 @@ public class MemberDao {
 	}
 
 	public Member selectMember(Connection conn, String userid) {
-		// TODO Auto-generated method stub
-		return null;
+		Member member = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = "select * from member where userid = ?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userid);
+//			
+//			USERID	VARCHAR2(15 BYTE)
+//			USERPWD	VARCHAR2(15 BYTE)
+//			USERNAME	VARCHAR2(20 BYTE)
+//			GENDER	CHAR(1 BYTE)
+//			AGE	NUMBER(3,0)
+//			PHONE	VARCHAR2(13 BYTE)
+//			EMAIL	VARCHAR2(30 BYTE)
+//			HOBBY	VARCHAR2(100 BYTE)
+//			ETC	VARCHAR2(1000 BYTE)
+//			ENROLL_DATE	DATE
+//			LASTMODIFIED	DATE
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				member = new Member();
+				member.setUserid(userid);
+				member.setUserpwd(rset.getString(2));
+				member.setUsername(rset.getString(3));
+				member.setGender(rset.getString(4));
+				member.setAge(rset.getInt(5));
+				member.setPhone(rset.getString(6));
+				member.setEmail(rset.getString(7));
+				member.setHobby(rset.getString(8));
+				member.setEtc(rset.getString(9));
+				member.setEnrollDate(rset.getDate(10));
+				member.setLastModified(rset.getDate(11));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return member;
+	}
+
+	public int updateMember(Connection conn, Member member) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = "update member set userpwd=?, age=?, email=?, phone=?, etc=? ,hobby=? where userid= ?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, member.getUserpwd());
+			pstmt.setInt(2, member.getAge());
+			pstmt.setString(3, member.getEmail());
+			pstmt.setString(4, member.getPhone());
+			pstmt.setString(5, member.getEtc());
+			pstmt.setString(6, member.getHobby());
+			pstmt.setString(7, member.getUserid());
+			
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int deleteMember(Connection conn, String userid) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = "delete from member where userid = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userid);
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public ArrayList<Member> selectList(Connection conn) {
+		ArrayList<Member> list = new ArrayList<>();
+		Statement stmt = null;
+		ResultSet rset = null;
+		
+		String query = "select * from member";
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			while(rset.next()){
+				Member member = new Member();
+				member.setUserid(rset.getString(1));
+				member.setUserpwd(rset.getString(2));
+				member.setUsername(rset.getString(3));
+				member.setGender(rset.getString(4));
+				member.setAge(rset.getInt(5));
+				member.setPhone(rset.getString(6));
+				member.setEmail(rset.getString(7));
+				member.setHobby(rset.getString(8));
+				member.setEtc(rset.getString(9));
+				member.setEnrollDate(rset.getDate(10));
+				member.setLastModified(rset.getDate(11));
+				
+				list.add(member);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
+		}
+		return list;
 	}
 	
 }

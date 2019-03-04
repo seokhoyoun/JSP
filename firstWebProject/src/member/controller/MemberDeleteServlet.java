@@ -8,22 +8,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import member.model.service.MemberService;
-import member.model.vo.Member;
 
 /**
- * Servlet implementation class LoginServlet
+ * Servlet implementation class MemberDeleteServlet
  */
-@WebServlet("/login")
-public class LoginServlet extends HttpServlet {
+@WebServlet("/mdel")
+public class MemberDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginServlet() {
+    public MemberDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,21 +30,17 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		
-		String userId = request.getParameter("userid");
-		String userPwd = request.getParameter("userpwd");
-		System.out.println(userId +"  "+userPwd);
-		Member loginUser = new MemberService().selectLogin(userId, userPwd);
-		System.out.println(loginUser);
-		response.setContentType("text/html; charset=utf-8");
-		if(loginUser != null) {
-			HttpSession session = request.getSession();
-			session.setAttribute("loginUser", loginUser);
-			response.sendRedirect("/testh/index.jsp");
+		// 회원 탈퇴처리용 컨트롤러
+		// 2.
+		String userid = request.getParameter("userid");
+		// 3.
+		int result = new MemberService().deleteMember(userid);
+		// 4.
+		if(result > 0) {
+			response.sendRedirect("/first/logout");
 		} else {
-			RequestDispatcher view = request.getRequestDispatcher("/index.jsp");
-			request.setAttribute("message", "아이디가 존재하지 않거나 비밀번호가 다릅니다.");
+			RequestDispatcher view = request.getRequestDispatcher("views/member/memberError.jsp");
+			request.setAttribute("message", userid+ "님의 회원 탈퇴 실패");
 			view.forward(request, response);
 		}
 	}
