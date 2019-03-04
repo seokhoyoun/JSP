@@ -37,4 +37,13 @@ public class MemberService {
 		close(conn);
 		return result;
 	}
+
+	public Member selectMenu(String userid) {
+		Connection conn = getConnection();
+		Member member = mdao.selectMember(conn, userid);
+		close(conn);
+		return member;
+		
+		
+	}
 }

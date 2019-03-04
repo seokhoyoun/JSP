@@ -54,7 +54,7 @@
 				<th colspan="2">
 					<a href="">쪽지</a>
 					&nbsp; &nbsp;
-					<a href="">내 정보 보기</a>
+					<a href="/first/myinfo?userid=<%= loginUser.getUserid()%>">내 정보 보기</a>
 				</th>
 			</tr>
 		</table>

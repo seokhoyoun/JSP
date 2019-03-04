@@ -122,5 +122,10 @@ public class MemberDao {
 		}
 		return result;
 	}
+
+	public Member selectMember(Connection conn, String userid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }
