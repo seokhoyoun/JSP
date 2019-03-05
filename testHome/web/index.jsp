@@ -87,16 +87,23 @@
         <div class="register-box">
             <span class="close">x</span>
             <form action="/testh/minsert" method="POST">
+            <div class="reg1">
                 <p>User ID</p>
                 <input type="text" name="userid" placeholder="아이디 입력" required>&nbsp;
                 <!-- <input type="submit" name="submit" value="Check ID"> -->
+                <br>
+                <button>Check ID</button>
                 <p>Password</p>
                 <input type="password" name="userpwd" placeholder="비밀번호 입력" required>
                 <p>Repeat Password </p>
                 <input type="password" name="userpwd2" placeholder="비밀번호 확인" required>
+                <p>Name</p>
+                <input type="text" name="username" placeholder="이름 입력" required>
                 <p>Gender</p>
                 <input type="radio" name="gender" value="M"> 남자
                         &nbsp; <input type="radio" name="gender" value="F"> 여자
+            </div>
+            <div class="reg2">
                 <p>Age</p>
                 <input type="number" name="age" min="0" max="100" required placeholder="나이" >
                 <p>Phone</p>
@@ -111,6 +118,7 @@
                 <input type="checkbox" name="hobby" value="trip">여행
                 <hr>
                 <input type="submit" value="가입하기">
+            </div>
             </form>
         </div>
     </main>
