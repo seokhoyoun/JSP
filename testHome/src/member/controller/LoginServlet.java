@@ -1,6 +1,7 @@
 package member.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -35,12 +36,11 @@ public class LoginServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		
 		String userId = request.getParameter("userid");
-		String userPwd = request.getParameter("userpwd");
-		System.out.println(userId +"  "+userPwd);
-		Member loginUser = new MemberService().selectLogin(userId, userPwd);
+		String password = request.getParameter("password");
+		System.out.println(userId +"  "+password);
+		Member loginUser = new MemberService().selectLogin(userId, password);
 		System.out.println(loginUser);
-		response.setContentType("text/html; charset=utf-8");
-		if(loginUser != null) {
+	/*	if(loginUser != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", loginUser);
 			response.sendRedirect("/testh/index.jsp");
@@ -48,7 +48,32 @@ public class LoginServlet extends HttpServlet {
 			RequestDispatcher view = request.getRequestDispatcher("/index.jsp");
 			request.setAttribute("message", "아이디가 존재하지 않거나 비밀번호가 다릅니다.");
 			view.forward(request, response);
+		}*/
+		
+		String result = null;
+		if(loginUser != null) {
+			HttpSession session = request.getSession();
+			session.setAttribute("loginUser", loginUser);
+			result = "ok";
+		} else {
+			if(userId.equals("") && !password.equals("")) {
+				result = "아이디를 입력해주세요.";
+			}
+			else if (password.equals("") && !userId.equals("")){
+				result = "비밀번호를 입력해주세요";
+			}
+			else if (userId.equals("") && password.equals("")) {
+				result = "아이디와 비밀번호를 입력해주세요";
+			}
+			else if (userId != null && password != null) {
+				result = "아이디와 비밀번호를 다시 확인해주세요";
+			}
 		}
+		response.setContentType("text/html; charset=utf-8");
+		PrintWriter out = response.getWriter();
+		out.append(result);
+		out.flush();
+		out.close();
 	}
 
 	/**

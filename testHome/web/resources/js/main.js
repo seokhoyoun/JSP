@@ -50,17 +50,53 @@ for (let i = 0; i < xBtns.length; i++) {
 		this.parentNode.style.display = "none";
 	});
 }
-document.querySelector('#loginSubmit').addEventListener('submit', loadText);
-	function loadText() {
-		var xhr = new XMLHttpRequest();
-		xhr.open('GET','/testh/login',true);
-		xhr.onload = function(){
-			if(this.status == 200){
-				console.log(this.responseText);
-			}
-			xhr.send();
+const form = {
+		    userid: document.getElementById('userid'),
+		    password: document.getElementById('userpwd'),
+		    submit: document.getElementById('btn-submit'),
+		    messages: document.getElementById('form-messages')
 		}
-		
-	}
 
+		form.submit.addEventListener('click',(e) =>{
+		    e.preventDefault();
+		    const request = new XMLHttpRequest();
+
+		    request.onload = () => {
+		        let responseObj = null;
+
+		      /*  try {
+		            responseObj = JSON.parse(request.responseText);
+		            
+
+		        } catch (e) {
+		            console.error('Could not parse JSON!');
+		        }*/
+		        responseObj = request.responseText;
+
+		        if (responseObj) {
+		            handleResponse(responseObj);
+		        }
+		    }
+//		    const requestData = 'userid='+form.userid.value+'&'+'password='+form.password.value;
+		    const requestData = 'userid='+encodeURIComponent(form.userid.value)+'&'+'password='+encodeURIComponent(form.password.value);
+		    console.log(requestData);
+		    request.open('POST','/testh/login');
+		    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		    request.send(requestData);
+		});
+
+		function handleResponse(responseObj){
+		    if(responseObj === 'ok'){
+		    	location.href = '/testh/index.jsp';
+		    } else{
+		    	while(form.messages.firstChild){
+		    		form.messages.removeChild(form.messages.firstChild);
+		    	}
+		    
+		    	const li = document.createElement('li');
+		    	li.textContent = responseObj;
+		    	form.messages.appendChild(li);
+		    }
+		    form.messages.style.display = "block";
+		}
 

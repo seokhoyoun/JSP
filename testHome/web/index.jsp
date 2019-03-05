@@ -74,14 +74,17 @@
            
              <form action="/testh/login" method="POST">
                 <p>User ID</p>
-                <input type="text" name="userid" placeholder="아이디 입력">
+                <input type="text" name="userid" id="userid" placeholder="아이디 입력">
                 <p>Password</p>
-                <input type="password" name="userpwd" placeholder="비밀번호 입력">
-                <input type="submit" name="submit" value="Login" id="loginSubmit">
-                <a href="#">Forget Password</a><hr>
-                <% if(message != null) { %>
+                <input type="password" name="userpwd" id="userpwd" placeholder="비밀번호 입력">
+                <button type="submit" id="btn-submit">Login</button>
+                <ul id="form-messages">
+                </ul>
+                <hr>
+                <a href="#">Forget Password</a>
+                <%-- <% if(message != null) { %>
                 <p id="message"><%= message %></p>
-                <% } %>
+                <% } %> --%>
             </form>
         </div>
         <div class="register-box">
