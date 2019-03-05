@@ -23,4 +23,15 @@ public class MemberService {
 	public String checkID(String id) {
 		return null;
 	}
+
+	public int insertMember(Member member) {
+		Connection conn = getConnection();
+		int result = mdao.insertMember(conn, member);
+		if(result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		close(conn);
+		return result;
+	}
 }

@@ -89,7 +89,7 @@
             <form action="/testh/minsert" method="POST">
                 <p>User ID</p>
                 <input type="text" name="userid" placeholder="아이디 입력" required>&nbsp;
-                <input type="submit" name="submit" value="Check ID">
+                <!-- <input type="submit" name="submit" value="Check ID"> -->
                 <p>Password</p>
                 <input type="password" name="userpwd" placeholder="비밀번호 입력" required>
                 <p>Repeat Password </p>
@@ -103,6 +103,13 @@
                 <input type="tel" name="phone" placeholder="핸드폰" required>
                 <p>Email</p>
                 <input type="email" name="email" placeholder="이메일" required>&nbsp;
+                <p>Interests</p>
+                <input type="checkbox" name="hobby" value="game">게임
+                <input type="checkbox" name="hobby" value="music">음악
+                <input type="checkbox" name="hobby" value="read">독서
+                <input type="checkbox" name="hobby" value="sports">운동
+                <input type="checkbox" name="hobby" value="trip">여행
+                <hr>
                 <input type="submit" value="가입하기">
             </form>
         </div>
