@@ -82,9 +82,6 @@
                 </ul>
                 <hr>
                 <a href="#">Forget Password</a>
-                <%-- <% if(message != null) { %>
-                <p id="message"><%= message %></p>
-                <% } %> --%>
             </form>
         </div>
         <div class="register-box">

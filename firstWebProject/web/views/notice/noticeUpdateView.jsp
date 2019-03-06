@@ -16,7 +16,11 @@
 
 <h2 align="center"><%= notice.getNoticeNo() %>번 공지글 수정페이지</h2>
 <hr>
-<form>
+<form action="/first/nupdate" method="POST" enctype="multipart/form-data">
+<input type="hidden" name="no" value="<%= notice.getNoticeNo() %>">
+<input type="hidden" name="ofile" value="<%= notice.getOriginalFilePath()%>">
+<input type="hidden" name="rfile" value="<%= notice.getRenameFilePath()%>">
+
 <table align="center" width="600">
 	<tr>
 		<th>제목</th>
@@ -28,7 +32,21 @@
 	</tr>
 	<tr>
 		<th>첨부파일</th>
-		<td></td>
+		<td id="filetd">
+		<% if(notice.getOriginalFilePath() != null) {%>
+		<%= notice.getOriginalFilePath() %>
+		<%} else { %>
+		첨부파일 없음
+		<%} %>&nbsp;
+		<button onclick="return addFile();">첨부파일변경</button></td>
+		<script>
+			function addFile(){
+				var filetd = document.getElementById('filetd');
+				var addHTML = "<input type='file' name='upfile'>"
+				filetd.innerHTML = filetd.innerHTML +'<br>'+ addHTML;
+				return false;
+			}
+		</script>
 	</tr>
 	<tr>
 		<th>내용</th>

@@ -38,7 +38,7 @@ function deleteNotice(){
 		<th>첨부파일</th>
 		<td>
 			<% if(notice.getOriginalFilePath() != null) {%>
-			<a href="/first/nfdown?ofile=<%= notice.getOriginalFilePath()%>&rfile<%= notice.getRenameFilePath()%>"><%= notice.getOriginalFilePath() %></a>
+			<a href="/first/nfdown?ofile=<%= notice.getOriginalFilePath()%>&rfile=<%= notice.getRenameFilePath()%>"><%= notice.getOriginalFilePath() %></a>
 			<% } else { %>
 			첨부파일없음
 			<% } %>
@@ -55,7 +55,7 @@ function deleteNotice(){
 			<button onclick="deleteNotice();">삭제하기</button>&nbsp;
 			
 		<%}%>
-		<button onclick="history.go(-1); return false;">목록</button>
+		<button onclick="location.href='/first/nlist'; return false;">목록</button>
 		</th>
 	</tr>
 </table>
