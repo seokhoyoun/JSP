@@ -20,8 +20,11 @@ public class MemberService {
 		return member;
 	}
 	
-	public String checkID(String id) {
-		return null;
+	public int checkID(String id) {
+		Connection conn = getConnection();
+		int count = mdao.checkID(conn, id);
+		close(conn);
+		return count;
 	}
 
 	public int insertMember(Member member) {

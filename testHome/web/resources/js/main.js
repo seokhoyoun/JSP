@@ -93,3 +93,53 @@ const form = {
 		    form.messages.style.display = "block";
 		}
 
+		const rform = {
+			    userid: document.forms['rform']['userid']
+			}
+
+			const messages = {
+			    id: document.getElementById('reg-check-id')
+			}
+
+			rform.userid.addEventListener('keyup', () =>{
+			    if(rform.userid.value === ''){
+			        handleMessages('아이디를 입력해주세요');
+			    } else if (rform.userid.value.length < 4 || rform.userid.value.length > 12) {
+			        handleMessages('아이디는 4 ~ 12자 이내로 만들어주세요');
+			    } else if (!/^[A-Za-z0-9+]*$/.test(rform.userid.value)){
+			        handleMessages('영문자와 숫자만 사용 가능합니다.');
+			    } else {
+			        const request = new XMLHttpRequest();
+
+			        request.onload = function(){
+			            let response = request.responseText;
+
+			            if(response){
+			                handleMessages(response);
+			            }
+			        }
+			        const requestData = 'userid='+encodeURIComponent(rform.userid.value);
+			        request.open('POST', '/testh/chkreg');
+			        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+			        request.send(requestData);
+			    }
+			});
+
+			function handleMessages(m){
+				while(messages.id.firstChild){
+					messages.id.removeChild(messages.id.firstChild);
+				}
+				const li = document.createElement('li');
+			    if(m === 'ok'){
+			    	messages.id.style.border ="1.5px solid #2ecc71";
+			    	messages.id.style.color ="#2ecc71";
+			    	li.textContent = "아이디로 사용가능합니다."
+			    	messages.id.appendChild(li);
+			    } else {
+			        li.textContent = m;
+			        messages.id.appendChild(li);
+			        messages.id.style.border ="1px solid red";
+			    	messages.id.style.color ="red";
+			        messages.id.style.display = "block";
+			    }
+			}

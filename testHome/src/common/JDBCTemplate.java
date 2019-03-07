@@ -5,8 +5,12 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
+
 public class JDBCTemplate {
-	public static Connection getConnection() {
+	/*public static Connection getConnection() {
 		Connection conn = null;
 		
 		try {
@@ -14,6 +18,17 @@ public class JDBCTemplate {
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "testh", "testh");
 			conn.setAutoCommit(false);
 			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return conn;
+	}*/
+	public static Connection getConnection() {
+		Connection conn = null; 
+		try {
+			Context initContext = new InitialContext();
+			DataSource ds = (DataSource) initContext.lookup("java:comp/env/jdbc/oraDB"); 
+			conn = ds.getConnection();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
