@@ -5,10 +5,14 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
+
 //Singleton Design Pattern
 public class JDBCTemplate {
 	
-	public static Connection getConnection() {
+	/*public static Connection getConnection() {
 		Connection conn = null;
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -18,7 +22,25 @@ public class JDBCTemplate {
 			e.printStackTrace();
 		}
 		return conn;
+	}*/
+	// 톰캣(WAS : Web Application Server = 웹 컨테이너)이 제공하는 DBCP(Database Connection Pool)를 이용해서
+	// 데이터베이스 연결 처리 
+	// web/META-INF/context-xml 파일에 설정됨
+	public static Connection getConnection() {
+		Connection conn = null;
+		
+		try {
+			// context.xml에 설정된 <Resource> 엘리먼트의 설정값을 읽어와서, DBCP에서 Connection을 받음
+			Context initContext = new InitialContext();
+			DataSource ds = (DataSource) initContext.lookup("java:comp/env/jdbc/oraDB");
+			conn = ds.getConnection();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return conn;
 	}
+	
 	public static void close(Connection conn) {
 		try {
 			if(conn != null && !conn.isClosed()) {

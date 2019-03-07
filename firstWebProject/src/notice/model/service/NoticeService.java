@@ -1,6 +1,7 @@
 package notice.model.service;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.util.HashMap;
 
 import notice.model.dao.NoticeDao;
@@ -60,5 +61,26 @@ public class NoticeService {
 			rollback(conn);
 		close(conn);
 		return result;
+	}
+
+	public HashMap<Integer, Notice> selectSearchTitle(String noticeTitle) {
+		Connection conn = getConnection();
+		HashMap<Integer, Notice> hm = ndao.selectSearchTitle(conn, noticeTitle);
+		close(conn);
+		return hm;
+	}
+
+	public HashMap<Integer, Notice> selectSearchWriter(String noticeWriter) {
+		Connection conn = getConnection();
+		HashMap<Integer, Notice> hm = ndao.selectSearchWriter(conn, noticeWriter);
+		close(conn);
+		return hm;
+	}
+
+	public HashMap<Integer, Notice> selectSearchDate(Date beginDate, Date endDate) {
+		Connection conn = getConnection();
+		HashMap<Integer, Notice> hm = ndao.selectSearchDate(conn, beginDate, endDate);
+		close(conn);
+		return hm;
 	}
 }
