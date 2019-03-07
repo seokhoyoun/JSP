@@ -64,13 +64,6 @@ const form = {
 		    request.onload = () => {
 		        let responseObj = null;
 
-		      /*  try {
-		            responseObj = JSON.parse(request.responseText);
-		            
-
-		        } catch (e) {
-		            console.error('Could not parse JSON!');
-		        }*/
 		        responseObj = request.responseText;
 
 		        if (responseObj) {
