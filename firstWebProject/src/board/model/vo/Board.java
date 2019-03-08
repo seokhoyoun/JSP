@@ -23,6 +23,7 @@ public class Board implements Serializable{
 	 */
 	private static final long serialVersionUID = 5490395094821902491L;
 	private int boardNum;
+	private String boardWriter;
 	private String boardTitle;
 	private String boardContent;
 	private String boardOriginalFileName;
@@ -37,11 +38,12 @@ public class Board implements Serializable{
 	
 	public Board() {
 	}
-	public Board(int boardNum, String boardTitle, String boardContent, String boardOriginalFileName,
+	public Board(int boardNum, String boardWriter, String boardTitle, String boardContent, String boardOriginalFileName,
 			String boardRenameFileName, int boardRef, int boardReplyRef, int boardReplyLev, int boardReplySeq,
 			int boardReadCount, Date boardDate) {
 		super();
 		this.boardNum = boardNum;
+		this.boardWriter = boardWriter;
 		this.boardTitle = boardTitle;
 		this.boardContent = boardContent;
 		this.boardOriginalFileName = boardOriginalFileName;
@@ -52,6 +54,12 @@ public class Board implements Serializable{
 		this.boardReplySeq = boardReplySeq;
 		this.boardReadCount = boardReadCount;
 		this.boardDate = boardDate;
+	}
+	public String getBoardWriter() {
+		return boardWriter;
+	}
+	public void setBoardWriter(String boardWriter) {
+		this.boardWriter = boardWriter;
 	}
 	public int getBoardNum() {
 		return boardNum;
@@ -124,11 +132,11 @@ public class Board implements Serializable{
 	}
 	@Override
 	public String toString() {
-		return boardNum + ", " + boardTitle + ", " + boardContent + ", " + boardOriginalFileName + ", "
-				+ boardRenameFileName + ", " + boardRef + ", " + boardReplyRef + ", " + boardReplyLev + ", "
+		return boardNum + ", " + boardWriter + ", " + boardTitle + ", " + boardContent + ", " + boardOriginalFileName
+				+ ", " + boardRenameFileName + ", " + boardRef + ", " + boardReplyRef + ", " + boardReplyLev + ", "
 				+ boardReplySeq + ", " + boardReadCount + ", " + boardDate;
 	}
-
+	
 	
 	
 }
