@@ -9,14 +9,18 @@
 	int maxPage = ((Integer)request.getAttribute("maxPage")).intValue();
 	int currentPage = ((Integer)request.getAttribute("currentPage")).intValue();
 	
-	String search = request.getAttribute("search").toString();
-	String keyword = null;
+	String search = null, keyword = null;
 	java.sql.Date begin = null, end = null;
-	if(search.equals("date")){
-		begin = (java.sql.Date)request.getAttribute("begin");
-		end = (java.sql.Date)request.getAttribute("end");
-	}else{
-		keyword = request.getAttribute("keyword").toString();
+	
+	if(request.getAttribute("search") != null){
+		search = request.getAttribute("search").toString();	
+		
+		if(search.equals("date")){
+			begin = (java.sql.Date)request.getAttribute("begin");
+			end = (java.sql.Date)request.getAttribute("end");
+		}else{
+			keyword = request.getAttribute("keyword").toString();
+		}
 	}
 	
 	Member loginUser = (Member)session.getAttribute("loginUser");
@@ -157,11 +161,11 @@ function showDiv(){
 %>
 	<font color="red" size="4"><b>[<%= p %>]</b></font>
 	<% }else{ 
-		if(search.equals("title")){%>
+		if(search != null && search.equals("title")){%>
 		<a href="/first/bsearcht?keyword=<%= keyword %>&page=<%= p %>"><%= p %></a>
-		<%}else if(search.equals("writer")){ %>
+		<%}else if(search != null && search.equals("writer")){ %>
 		<a href="/first/bsearchw?keyword=<%= keyword %>&page=<%= p %>"><%= p %></a>
-		<%}else if(search.equals("date")){ %>
+		<%}else if(search != null && search.equals("date")){ %>
 		<a href="/first/bsearchd?begin=<%= begin %>&end=<%= end %>&page=<%= p %>"><%= p %></a>
 		<%}else{ %>
 	<a href="/first/blist?page=<%= p %>"><%= p %></a>
