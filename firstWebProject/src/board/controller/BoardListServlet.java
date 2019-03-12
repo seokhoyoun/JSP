@@ -51,7 +51,6 @@ public class BoardListServlet extends HttpServlet {
 		
 		// 총 페이지 수 계산 : 목록이 마지막 1개일 때 1페이지로 처리
 		int maxPage = (int) ((double)listCount / limit + 0.9);
-		System.out.println(maxPage);
 		// 현재 페이지그룹 (1개 페이지를 한그룹으로 처리)에
 		// 보여줄 시작페이지 수 
 		// 현재 페이지가 13이면 그룹은 11~20 이 보여지게 함

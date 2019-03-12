@@ -17,15 +17,75 @@
 <head>
 <meta charset="UTF-8">
 <title>First</title>
+<script type="text/javascript" src="/first/resources/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
 	function showWriteForm(){
 		location.href = "/first/views/board/boardWriteForm.jsp";
+	}
+	
+	$(function(){
+		showDiv();
+		
+		$("input[name=item]").on("change", function(){
+			showDiv();
+		});
+	});
+
+	function showDiv(){
+		if($('input[name="item"]').eq(0).is(":checked")){
+			$("#titleDiv").css("display", "block");
+			$("#writerDiv").css("display", "none");
+			$("#dateDiv").css("display", "none");
+		}
+		if($('input[name="item"]').eq(1).is(":checked")){
+			$("#titleDiv").css("display", "none");
+			$("#writerDiv").css("display", "block");
+			$("#dateDiv").css("display", "none");
+		}
+		if($('input[name="item"]').eq(2).is(":checked")){
+			$("#titleDiv").css("display", "none");
+			$("#writerDiv").css("display", "none");
+			$("#dateDiv").css("display", "block");
+		}
 	}
 </script>
 </head>
 <body>
 <%@ include file="../common/header.jsp" %>
 <hr style="clear:both">
+<div style="padding-left:40%">
+	<div>
+		<h2>검색할 항목을 선택하세요</h2>
+		<input type="radio" name="item" value="title" checked> 제목 &nbsp;&nbsp;&nbsp;
+		<input type="radio" name="item" value="writer"> 작성자 &nbsp;&nbsp;&nbsp;
+		<input type="radio" name="item" value="date"> 날짜 &nbsp;&nbsp;&nbsp;
+	</div>
+	<div id="titleDiv">
+		<form action="/first/bsearcht" method="POST">
+			<input type="hidden" name="search" value="title">
+			<label>검색할 제목을 입력하세요 : <input name="keyword"></label>
+			<input type="submit" value="검색">
+		</form>
+	</div>
+	<div id="writerDiv">
+		<form action="/first/bsearchw" method="POST">
+			<input type="hidden" name="search" value="writer">
+			<label>검색할 아이디를 입력하세요 : <input name="keyword"></label>
+			<input type="submit" value="검색">
+		</form>
+	</div>
+	<div id="dateDiv">
+		<form action="/first/bsearchd" method="POST">
+			<input type="hidden" name="search" value="date">
+			<label>
+			검색할 날짜를 선택하세요 : 
+			<input type="date" name="begin"> ~
+			<input type="date" name="end"> 
+			</label>
+			<input type="submit" value="검색">
+		</form>
+	</div>
+</div>
 	<h2 align="center">게시글 목록</h2>
 	<h4 align="center">총 게시글 갯수 : <%= listCount %></h4>
 	<% if(loginUser != null) { %>

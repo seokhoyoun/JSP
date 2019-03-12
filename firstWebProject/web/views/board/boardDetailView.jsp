@@ -45,7 +45,7 @@
 			</tr>
 			<tr>
 				<th colspan="2">
-				<% if(loginUser != null){ %>
+				<% if(loginUser != null && board.getBoardReplyLev() < 2){ %>
 					<a href="/first/views/board/boardReplyForm.jsp?bnum=<%= board.getBoardNum() %>&page=<%= currentPage %>">[댓글달기]</a>
 				<%}  %>
 				&nbsp; &nbsp;
