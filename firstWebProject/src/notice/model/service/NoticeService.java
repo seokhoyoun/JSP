@@ -2,6 +2,7 @@ package notice.model.service;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import notice.model.dao.NoticeDao;
@@ -82,5 +83,12 @@ public class NoticeService {
 		HashMap<Integer, Notice> hm = ndao.selectSearchDate(conn, beginDate, endDate);
 		close(conn);
 		return hm;
+	}
+
+	public ArrayList<Notice> selectTop5() {
+		Connection conn = getConnection();
+		ArrayList<Notice> list = ndao.selectTop5(conn);
+		close(conn);
+		return list;
 	}
 }
