@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>testLocalStorage</title>
+<script type="text/javascript" src="/api1/resources/js/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+<h1>로컬스토리지 테스트</h1>
+<h3>localStorage에 값 추가하기</h3>
+키:<input id="key"><br>
+값:<input id="value"><br>
+<button onclick="addItem();">데이터 추가</button>
+<script>
+	function addItem(){
+		var key = $('#key').val();
+		var value = $('#value').val();
+		
+		window.localStorage.setItem(key, value);
+		
+		$('#key').val("");
+		$('#value').val("");
+	}
+</script>
+<hr>
+<h3>localStorage에 저장된 값 조회하기</h3>
+조회할 키 : <input type="text" id="getKey"><br>
+<button onclick="getValue();">값 조회</button>
+<script>
+	function getValue(){
+		var key = $('#getKey').val();
+		alert(key + "에 대한 값은 "+localStorage.getItem(key));
+		
+		$('#getKey').val("");
+	}
+</script>
+<h3>localStorage에 저장된 값 모두 조회하기</h3>
+<button onclick="getAll();">모두조회</button>
+<script>
+	function getAll(){
+		console.log(localStorage);
+	}
+</script>
+<hr>
+<h3>localStorage의 값 제거하기</h3>
+제거할 키: <input id="delKey">
+<button onclick="deleteItem();">제거</button>
+<script>
+	function deleteItem(){
+		localStorage.removeItem($('#delKey').val());
+		console.log(localStorage);
+	}
+</script>
+<br>
+<hr>
+<h3>localStorage 모두 비우기</h3>
+<button onclick="clearAll();">비우기</button>
+<script>
+	function clearAll(){
+		localStorage.clear();
+		console.log(localStorage);
+	}
+</script>
+</body>
+</html>
