@@ -5,7 +5,6 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.HashMap;
 import static common.JDBCTemplate.*;
 
@@ -238,32 +237,5 @@ public HashMap<Integer,Notice> selectMap(Connection conn){
 			close(pstmt);
 		}
 		return hm;
-	}
-
-	public ArrayList<Notice> selectTop5(Connection conn) {
-		ArrayList<Notice> list = new ArrayList<>();
-		Statement stmt = null;
-		ResultSet rset = null;
-		
-		String query = "SELECT * FROM (SELECT ROWNUM RNUM, NOTICENO, NOTICETITLE, NOTICEDATE FROM (SELECT * FROM NOTICE ORDER BY NOTICEDATE DESC)) WHERE RNUM >= 1 AND RNUM <= 5";
-		try {
-			stmt = conn.createStatement();
-			rset = stmt.executeQuery(query);
-			
-			while(rset.next()) {
-				Notice n = new Notice();
-				n.setNoticeNo(rset.getInt("noticeno"));
-				n.setNoticeTitle(rset.getString("noticetitle"));
-				n.setNoticeDate(rset.getDate("noticedate"));
-				
-				list.add(n);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(stmt);
-		}
-		return list;
 	}
 }

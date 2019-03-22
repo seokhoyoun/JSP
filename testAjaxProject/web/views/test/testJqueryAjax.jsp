@@ -131,41 +131,9 @@
 		$('#test5').click(function(){
 			// $.getJSON() 과 $.ajax() 선택사용
 			// $.getJSON 사용
-			$.getJSON('/testa/t5.do',{
-				no: $('#no2').val(),
-			},
-			function(data){
-				console.log(data); // object 출력됨
-				// 배열 객체를 문자열 형태로 바꿈
-				const jsonStr1 = JSON.stringify(data);
-				// 바뀐 문자열을 json 객체로 바꿈
-				const json1 = JSON.parse(jsonStr1);
-				
-				let values1 ="";
-				for(var i in json1.list){
-					// 한글깨짐 막으려고 문자 인코딩 처리한 json객체 안의 값은 decodeURIComponent로 디코딩 처리
-					values1 += json1.list[i].userid +" "+ json1.list[i].userpwd+" "+ decodeURIComponent(json1.list[i].username)+" "+ json1.list[i].age
-					+" "+ json1.list[i].email+" "+ json1.list[i].phone+"<br>";
-				} // for in 
-				$('#p5').html(values1);
-			});
+			
 			// $.ajax 사용
-			$.ajax({
-				url: '/testa/t5.do',
-				data: {no : $('#no2').val()},
-				type: 'POST',
-				dataType: "json",
-				success: function(data){
-					const jsonStr = JSON.stringify(data);
-					const json = JSON.parse(jsonStr);
-					let values = $('#p5').html()+"<br>";
-					for(var i in json.list){
-						values += json.list[i].userid +" "+ json.list[i].userpwd+" "+ decodeURIComponent(json.list[i].username)+" "+ json.list[i].age
-						+" "+ json.list[i].email+" "+ json.list[i].phone+"<br>";
-					}
-					$('#p5').html(values);
-				}
-			});
+			
 		}); // click;
 	}); //ready
 </script>
