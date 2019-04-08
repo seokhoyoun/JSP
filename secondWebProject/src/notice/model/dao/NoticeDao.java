@@ -7,6 +7,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import notice.model.vo.Notice;
@@ -273,6 +274,43 @@ public class NoticeDao {
 		}finally {
 			close(rset);
 			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public ArrayList<Notice> selectTop5Write(Connection conn) {
+		ArrayList<Notice> list = new ArrayList<Notice>();
+		Statement stmt = null;
+		ResultSet rset = null;
+		
+		String query = "SELECT * " + 
+				"FROM (SELECT ROWNUM RNUM, "
+				+ "NOTICENO, NOTICETITLE, " + 
+				"NOTICEDATE " + 
+				"FROM (SELECT * FROM NOTICE " + 
+				"ORDER BY NOTICEDATE DESC)) " + 
+				"WHERE RNUM >= 1 AND RNUM <= 5";
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			while(rset.next()) {
+				Notice notice = new Notice();
+				
+				notice.setNoticeNo(rset.getInt("noticeno"));
+				notice.setNoticeTitle(rset.getString("noticetitle"));
+				notice.setNoticeDate(rset.getDate("noticedate"));
+				
+				list.add(notice);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
 		}
 		
 		return list;

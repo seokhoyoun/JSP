@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" errorPage="memberError.jsp" import="member.model.vo.Member, java.util.ArrayList" %>
-<%
-	Member loginUser = (Member)session.getAttribute("loginUser");
-	ArrayList<Member> list = (ArrayList<Member>)request.getAttribute("list");
-%>    
+    pageEncoding="UTF-8" errorPage="memberError.jsp" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,11 +11,12 @@
 </style>
 </head>
 <body>
-<% if(loginUser != null && loginUser.getUserId().equals("admin")){ %>
+<c:if test="${!empty loginUser and loginUser.userId eq 'admin' }">
 	<%@ include file="../common/adminHeader.jsp" %>
-<% }else{ %>
+</c:if>
+<c:if test="${!empty loginUser and loginUser.userId ne 'admin' }">
 	<%@ include file="../common/header.jsp" %>
-<% } %>
+</c:if>
 <hr style="clear:left;">
 <h2 align="center">회원 전체 관리 페이지</h2>
 <br>
@@ -38,24 +36,24 @@
 	<th>로그인 권한 제한</th>
 	<th>강제 탈퇴 처리</th>
 </tr>
-<% for(int i = 0; i < list.size(); i++){ %>
+<c:forEach items="${requestScope.list }" var="m" varStatus="status">
 <tr>
-	<td><%= i + 1 %></td>
-	<td><%= list.get(i).getUserId() %></td>
-	<td><%= list.get(i).getUserName() %></td>
-	<td><%= list.get(i).getAge() %></td>
-	<td><%= list.get(i).getGender() %></td>
-	<td><%= list.get(i).getPhone() %></td>
-	<td><%= list.get(i).getEmail() %></td>
-	<td><%= list.get(i).getHobby() %></td>
-	<td><%= list.get(i).getEtc() %></td>
-	<td><%= list.get(i).getEnrollDate() %></td>
-	<td><%= list.get(i).getLastModified() %></td>
+	<td>${status.count }</td>
+	<td>${m.userId }</td>
+	<td>${m.userName }</td>
+	<td>${m.age }</td>
+	<td>${m.gender }</td>
+	<td>${m.phone }</td>
+	<td>${m.email }</td>
+	<td>${m.hobby }</td>
+	<td>${m.etc }</td>
+	<td>${m.enrollDate }</td>
+	<td>${m.lastModified }</td>
 	<td><button>로그인제한</button> &nbsp; 
 		<button>로그인허용</button></td>
 	<td><button>강제탈퇴처리</button></td>
 </tr>
-<% } %>
+</c:forEach>
 </table>
 
 

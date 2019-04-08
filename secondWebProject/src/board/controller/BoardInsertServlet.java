@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Enumeration;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -127,6 +128,10 @@ public class BoardInsertServlet extends HttpServlet {
 			view.forward(request, response);
 		}
 		
+	}
+	
+	private String changeFileName(String originFileName) {
+		return null;
 	}
 
 	/**

@@ -24,7 +24,7 @@
 <% if(exception != null){ %>
 JSP 예외발생 : <%= exception.getMessage() %> <br>
 <% }else{ %>
-서블릿이 전달한 메세지 : <%= message %>  <br>
+서블릿이 전달한 메세지 : ${message }  <br>
 <% } %>
 <br>
 <a href="/second/index.jsp">시작페이지로 이동</a> <br>
