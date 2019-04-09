@@ -104,7 +104,7 @@
 <c:if test="${ !empty loginUser and loginUser.userId eq 'admin' }">
 	<%@ include file="views/common/adminHeader.jsp" %>
 </c:if>
-<c:if test="${empty loginUser }">
+<c:if test="${empty loginUser or loginUser.userId ne 'admin' }">
 	<%@ include file="views/common/header.jsp" %>
 </c:if>
 <hr style="clear:left;">
