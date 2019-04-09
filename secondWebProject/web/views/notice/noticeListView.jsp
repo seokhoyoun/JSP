@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" errorPage="noticeError.jsp" %>
-<%@ page import="notice.model.vo.*, java.util.*, member.model.vo.Member" %>    
-<%
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%-- <%
 	HashMap<Integer, Notice> map = 
 		(HashMap<Integer, Notice>)request.getAttribute("list");
 	Member loginUser = (Member)session.getAttribute("loginUser");
@@ -10,7 +10,7 @@
 	ArrayList<Notice> list = new ArrayList<Notice>(values); */
 	ArrayList<Notice> list = new ArrayList<Notice>(map.values());
 	Collections.sort(list, new NoticeNoDescending());
-%>
+%> --%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,22 +53,16 @@ function showDiv(){
 </script>
 </head>
 <body>
-<%@ include file="../common/header.jsp" %>
+<c:import url="../common/header.jsp" />
 <hr style="clear:both;">
 <h2 align="center">공지사항 목록 보기</h2>
 <br>
 <%-- 글쓰기 버튼은 로그인했을 때만 보여지게 함 --%>
-<% //관리자일 때만 글쓰기 제공 처리
-	/* if(loginUser != null 
-		&& loginUser.getUserId().equals("admin")){ */ 
-	if(loginUser != null){ %>
-<center>
+<c:if test="${!empty loginUser }">
 	<button onclick="moveWritePage();">글쓰기</button>
-</center>
-<% } %>
+</c:if>
 <br>
 <%-- 검색기능 --%>
-<center>
 <div>
 	<h2>검색할 항목을 선택하시오.</h2>
 	<input type="radio" name="item" value="title" checked> 제목 
@@ -102,7 +96,6 @@ function showDiv(){
 	<input type="submit" value="검색">
 	</form>
 </div>
-</center>
 <br>
 <%-- 공지 목록 출력 --%>
 <table align="center" width="650" cellspacing="0" border="1">
@@ -113,33 +106,36 @@ function showDiv(){
 	<th>날짜</th>
 	<th>첨부파일</th>
 </tr>
-<% 
-	for(Notice notice : list){
-%>
+<%-- <c:forEach items="${list}" var="item">
+	${item.key} = ${item.value.noticeTitle }
+</c:forEach> --%>
+<c:forEach items="${list}" var="item">
 <tr>
-	<td align="center"><%= notice.getNoticeNo() %></td>
+	<td align="center">${item.value.noticeNo }</td>
 	<td>
-	<% if(loginUser != null){ //로그인한 상태 %>
-		<a href="/second/ndetail?no=<%= notice.getNoticeNo() %>"><%= notice.getNoticeTitle() %></a>
-	<% }else{ %>
-		<%= notice.getNoticeTitle() %>
-	<% } %>
+	<c:if test="${!empty loginUser }">
+		<a href="/second/ndetail?no=${item.value.noticeNo }">${item.value.noticeTitle }</a>
+	</c:if>
+	<c:if test="${empty loginUser }">
+		${item.value.noticeTitle}
+	</c:if>
 	</td>
-	<td align="center"><%= notice.getNoticeWriter() %></td>
-	<td align="center"><%= notice.getNoticeDate() %></td>
+	<td align="center">${item.value.noticeWriter }</td>
+	<td align="center">${item.value.noticeDate }</td>
 	<td align="center">
-	<% if(notice.getOriginalFilePath() != null){ //첨부파일이 있다면 %>
+	<c:if test="${!empty item.value.originalFilePath }">
 		◎
-	<% }else{  //첨부파일이 없다면 %>
+	</c:if>
+	<c:if test="${empty item.value.originalFilePath}">
 		&nbsp;
-	<% } %>
+	</c:if>
 	</td>
 </tr>
-<%  } %>
+</c:forEach>
 </table>
 
 <hr>
-<%@ include file="../common/footer.jsp" %>
+<c:import url="../common/footer.jsp"/>
 </body>
 </html>
 

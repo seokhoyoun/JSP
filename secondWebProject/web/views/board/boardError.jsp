@@ -8,11 +8,12 @@
 </head>
 <body>
 <h1>게시글 서비스 오류 발생</h1>
-<% if(exception != null){ %>
+<c:if test="${!empty exception }">
 <h3>JSP 예외 발생 : <%= exception.getMessage() %></h3>
 <h3>예외클래스명 확인 : <%= exception.getClass().getName() %></h3>
-<% }else{ %>
+</c:if>
+<c:if test="${empty exception }">
 <h3>서블릿 요청 실패 : <%= request.getAttribute("message") %></h3>
-<% } %>
+</c:if>
 </body>
 </html>

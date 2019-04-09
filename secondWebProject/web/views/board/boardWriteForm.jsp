@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" errorPage="boardError.jsp" %>
-<%@ page import="member.model.vo.Member" %>
-<%
-	Member loginUser = (Member)session.getAttribute("loginUser");
-%>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,7 +14,7 @@
 <form action="/second/binsert" method="post" enctype="multipart/form-data">
 <table align="center">
 <tr><td>제목</td><td><input type="text" name="btitle"></td></tr>
-<tr><td>작성자</td><td><input type="text" name="bwriter" readonly value="<%= loginUser.getUserId() %>"></td></tr>
+<tr><td>작성자</td><td><input type="text" name="bwriter" readonly value="${sessionScope.loginUser.userId }"></td></tr>
 <tr><td>첨부파일</td>
 <td><input type="file" name="bupfile"></td></tr>
 <tr><td>내용</td>

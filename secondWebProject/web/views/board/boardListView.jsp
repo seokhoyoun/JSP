@@ -104,7 +104,7 @@
 			&nbsp; &nbsp; &nbsp; &nbsp; ▶▶ 
 		</c:if> <%-- 로그인 상태일 때만 상세보기 링크 설정함 --%> 
 		<c:if test="${!empty loginUser}">
-				<a href="/second/bdetail?bnum=${b.boardNum }&page="${currentPage}">${b.boardTitle }</a>
+				<a href="/second/bdetail?bnum=${b.boardNum }&page=${currentPage}">${b.boardTitle }</a>
 		</c:if>
 		<c:if test="${ empty loginUser }">
 			${b.boardTitle}

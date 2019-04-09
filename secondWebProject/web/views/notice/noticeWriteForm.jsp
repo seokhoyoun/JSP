@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" errorPage="noticeError.jsp" import="member.model.vo.Member" %>
-<%
-	Member loginUser = (Member)session.getAttribute("loginUser");
-%>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,7 +17,7 @@
 <table align="center" width="600">
 <tr><th>제목</th><td><input type="text" name="title" size="60"></td></tr>
 <tr><th>작성자</th>
-<td><input type="text" name="writer" value="<%= loginUser.getUserId() %>" readonly></td></tr>
+<td><input type="text" name="writer" value="${loginUser.userId }" readonly></td></tr>
 <tr><th>첨부파일</th>
 <td><input type="file" name="upfile"></td></tr>
 <tr><th>내용</th>

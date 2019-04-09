@@ -93,5 +93,31 @@ ${count }<br>
 <c:forTokens items="core/fmt:sql*java" delims="/:*" var="temp">
 	<li>${temp }</li>
 </c:forTokens>
+<hr>
+<h4>c:url</h4>
+<!-- <a href="testFmt.jsp?no=123">testFmt로 이동</a> -->
+<c:url var="movetf" value="testFmt.jsp">
+	<c:param name="no" value="123" />
+</c:url>
+<a href="${movetf }">testFmt로 이동</a><br>
+<hr>
+<h4>c:import - jsp:include와 같은 기능을 수행함</h4>
+<c:import url="testImport.jsp"></c:import>
+<hr>
+<h4>c:catch 태그 : try - catch 문 같은 기능</h4>
+<c:catch var="e">
+	<c:set var="num" value="null" />
+	<c:set var="num3" value="77" />
+	나눈 결과 : ${num3 / num } <br>
+</c:catch>
+<c:if test="${!empty e}">
+ 에러메세지 :  ${e.message }
+</c:if>
+<hr>
+<h4>response.setRedirect()</h4>
+<c:set var="test" value="0"/>
+<c:if test="${test eq 1 }">
+	<c:redirect url="testFunctions.jsp" />
+</c:if>
 </body>
 </html>
