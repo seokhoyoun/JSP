@@ -68,7 +68,11 @@ border="1" width="500">
 		<a href="${del }"></a>
 	</c:if>
 	&nbsp; &nbsp;
-	<a href="/second/blist?page=${currentPage}">[목록]</a>
+	<%-- <a href="/second/blist?page=${currentPage}">[목록]</a> --%>
+	<c:url var="blist" value="/blist">
+		<c:param name="page" value="${currentPage }"></c:param>
+	</c:url>
+	<a href="${blist }"></a>
 	</th>	
 </tr>
 

@@ -44,7 +44,7 @@
 </script>
 </head>
 <body>
-	<%@ include file="../common/header.jsp"%>
+	<c:import url="../common/header.jsp" />
 	<hr style="clear: both;">
 	<h2 align="center">게시글 목록</h2>
 	<h4 align="center">총 게시글 갯수 : ${listCount }</h4>
@@ -55,7 +55,6 @@
 	</c:if>
 	<br>
 	<%-- 검색기능 --%>
-	<center>
 		<div>
 			<h2>검색할 항목을 선택하시오.</h2>
 			<input type="radio" name="item" value="title" checked> 제목
@@ -82,7 +81,6 @@
 					value="검색">
 			</form>
 		</div>
-	</center>
 	<br>
 	<table align="center" border="1" cellspacing="0" width="700">
 		<tr>
@@ -104,7 +102,12 @@
 			&nbsp; &nbsp; &nbsp; &nbsp; ▶▶ 
 		</c:if> <%-- 로그인 상태일 때만 상세보기 링크 설정함 --%> 
 		<c:if test="${!empty loginUser}">
-				<a href="/second/bdetail?bnum=${b.boardNum }&page=${currentPage}">${b.boardTitle }</a>
+				<%-- <a href="/second/bdetail?bnum=${b.boardNum }&page=${currentPage}">${b.boardTitle }</a> --%>
+				<c:url var="bdetail" value="/bdetail">
+					<c:param name="bnum" value="${b.boardNum }" />
+					<c:param name="page" value="${currentPage }"/>
+				</c:url>
+				<a href="${bdetail }">${b.boardTitle }</a>
 		</c:if>
 		<c:if test="${ empty loginUser }">
 			${b.boardTitle}
@@ -127,10 +130,18 @@
 			[맨처음]&nbsp;
 		</c:if>
 		<c:if test="${currentPage > 1 }">
-			<a href="/second/blist?page=1">[맨처음]</a>&nbsp;		
+			<!-- <a href="/second/blist?page=1">[맨처음]</a>&nbsp; -->
+			<c:url var="first" value="/blist">
+				<c:param name="page" value="1" />
+			</c:url>
+			<a href="${first }">[맨처음]</a>		
 		</c:if>
 		<c:if test="${(currentPage-10) < startPage && (currentPage - 10) > 1 }">
-			<a href="/second/blist?page=${startpage - 10 }">[prev]</a>
+			<%-- <a href="/second/blist?page=${startpage - 10 }">[prev]</a> --%>
+			<c:url var="prev" value="/blist">
+				<c:param name="page" value="${startpage -10 }"/>
+			</c:url>
+			<a href="${prev }">[prev]</a>
 		</c:if>
 		<c:if test="${currentPage - 10 <= 1}">
 			[prev]
@@ -144,23 +155,47 @@
 			<c:if test="${temp ne currentPage}">
 				<c:choose>
 					<c:when test="${!empty search and search eq 'title' }">
-						<a href="/second/bsearcht?keyword=${keyword }&page=${temp}">${temp}</a>
+						<%-- <a href="/second/bsearcht?keyword=${keyword }&page=${temp}">${temp}</a> --%>
+						<c:url var="bsearcht" value="/bsearcht">
+							<c:param name="keyword" value="${keyword }"/>
+							<c:param name="page" value="${temp }"/>
+						</c:url>
+						<a href="${bsearcht }">${temp }</a>
 					</c:when>
 					<c:when test="${!empty search and search eq 'writer' }">
-						<a href="/second/bsearcht?keyword=${keyword }&page=${temp}">${temp}</a>
+						<%-- <a href="/second/bsearchw?keyword=${keyword }&page=${temp}">${temp}</a> --%>
+						<c:url var="bsearchw" value="/bsearchw">
+							<c:param name="keyword" value="${keyword }"/>
+							<c:param name="page" value="${temp }"/>
+						</c:url>
+						<a href="${bsearchw }">${temp }</a>
 					</c:when>
 					<c:when test="${!empty search and search eq 'date' }">
-						<a href="/second/bsearchd?begin=${begin }&end=${end }&page=${temp}">${temp }</a>
+						<%-- <a href="/second/bsearchd?begin=${begin }&end=${end }&page=${temp}">${temp }</a> --%>
+						<c:url var="bsearchd" value="/bsearchd">
+							<c:param name="begin" value="${begin }"/>
+							<c:param name="end" value="${end }"/>
+							<c:param name="page" value="${temp }"/>
+						</c:url>
+						<a href="${bsearchd }">${temp }</a>
 					</c:when>
 					<c:otherwise>
-						<a href="/second/blist?page=${temp }">${temp}</a>
+						<%-- <a href="/second/blist?page=${temp }">${temp}</a> --%>
+						<c:url var="current" value="/blist">
+							<c:param name="page" value="${temp }"/>
+						</c:url>
+						<a href="${current}">${temp }</a>
 					</c:otherwise>
 				</c:choose>
 			</c:if>
 		</c:forEach>		
 		&nbsp;
 		<c:if test="${(currentPage + 10) > endPage && (currentPage + 10) < maxPage }">
-			<a href="/second/blist?page=${endPage + 10 }">[next]</a>&nbsp;
+			<%-- <a href="/second/blist?page=${endPage + 10 }">[next]</a>&nbsp; --%>
+			<c:url var="next" value="/blist">
+				<c:param name="page" value="${endPage + 10 }"/>
+			</c:url>
+			<a href="${next }">[next]</a>
 		</c:if>
 		<c:if test="">
 			[next]&nbsp;
@@ -169,11 +204,15 @@
 			[맨끝]
 		</c:if>
 		<c:if test="${currentPage < maxPage }">
-			<a href="/second/blist?page=${maxPage}">[맨끝]</a>
+			<%-- <a href="/second/blist?page=${maxPage}">[맨끝]</a> --%>
+			<c:url var="end" value="/blist">
+				<c:param name="page" value="${maxPage }"/>
+			</c:url>
+			<a href="${end }">[맨끝]</a>
 		</c:if>
 	</div>
 	<hr>
-	<%@ include file="../common/footer.jsp"%>
+	<c:import url="../common/footer.jsp" />
 </body>
 </html>
 

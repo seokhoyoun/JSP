@@ -8,7 +8,7 @@
 <title>second</title>
 </head>
 <body>
-<%@ include file="../common/header.jsp" %>
+<c:import url="../common/header.jsp"/>
 <hr style="clear:both;">
 <h2 align="center">${board.boardNum} 번 게시글 수정페이지</h2>
 <br>
@@ -55,7 +55,7 @@
 </table></form>
 </c:if>
 <hr>
-<%@ include file="../common/footer.jsp" %>
+<c:import url="../common/footer.jsp" />
 </body>
 </html>
 

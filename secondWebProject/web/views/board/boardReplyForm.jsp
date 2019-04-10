@@ -8,7 +8,8 @@
 <title>second</title>
 </head>
 <body>
-<%@ include file="../common/header.jsp" %>
+<%-- <%@ include file="../common/header.jsp" %> --%>
+<c:import url="../common/header.jsp"/>
 <hr style="clear:both;">
 <h2 align="center">${param.bnum }번 글의 댓글달기</h2>
 <form action="/second/breply" method="post">
@@ -26,7 +27,7 @@
 </table>
 </form>
 <hr>
-<%@ include file="../common/footer.jsp" %>
+<c:import url="../common/footer.jsp" />
 </body>
 </html>
 
