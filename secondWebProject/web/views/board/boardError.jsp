@@ -14,7 +14,7 @@
 <h3>예외클래스명 확인 : <%= exception.getClass().getName() %></h3>
 </c:if>
 <c:if test="${empty exception }">
-<h3>서블릿 요청 실패 : <%= request.getAttribute("message") %></h3>
+<h3>서블릿 요청 실패 : ${message }</h3>
 </c:if>
 </body>
 </html>

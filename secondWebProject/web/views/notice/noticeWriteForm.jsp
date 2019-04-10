@@ -8,7 +8,7 @@
 <title>second</title>
 </head>
 <body>
-<%@ include file="../common/header.jsp" %>
+<c:import url="../common/header.jsp"/>
 <hr style="clear:both;">
 <h2 align="center">공지글 등록 페이지</h2>
 <br>
@@ -32,7 +32,7 @@
 </form>
 
 <hr>
-<%@ include file="../common/footer.jsp" %>
+<c:import url="../common/footer.jsp"/>
 </body>
 </html>
 

@@ -8,7 +8,8 @@
 <title>second</title>
 </head>
 <body>
-<%@ include file="../common/header.jsp" %>
+<%-- <%@ include file="../common/header.jsp" %> --%>
+<c:import url="../common/header.jsp"/>
 <hr style="clear:both;">
 <h2 align="center">${notice.noticeNo }번 공지글 수정페이지</h2>
 <hr>
@@ -62,7 +63,8 @@
 
 
 <hr>
-<%@ include file="../common/footer.jsp" %>
+<%-- <%@ include file="../common/footer.jsp" %> --%>
+<c:import url="../common/footer.jsp"/>
 </body>
 </html>
 

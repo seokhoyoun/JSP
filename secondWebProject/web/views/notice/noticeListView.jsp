@@ -114,7 +114,11 @@ function showDiv(){
 	<td align="center">${item.value.noticeNo }</td>
 	<td>
 	<c:if test="${!empty loginUser }">
-		<a href="/second/ndetail?no=${item.value.noticeNo }">${item.value.noticeTitle }</a>
+		<%-- <a href="/second/ndetail?no=${item.value.noticeNo }">${item.value.noticeTitle }</a> --%>
+		<c:url var="ndetail" value="/ndetail">
+			<c:param name="no" value="${item.value.noticeNo }"/>
+		</c:url>
+		<a href="${ndetail }">${item.value.noticeTitle }</a>
 	</c:if>
 	<c:if test="${empty loginUser }">
 		${item.value.noticeTitle}

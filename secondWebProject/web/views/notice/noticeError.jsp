@@ -7,11 +7,12 @@
 <title>second</title>
 </head>
 <body>
-<% if(exception != null){ %>
+<c:if test="${!empty exception }">
 <h3>JSP 오류발생 : <%= exception.getMessage() %></h3>
-<% }else{ %>
-<h3>서블릿 오류발생 : <%= (String)request.getAttribute("message") %></h3>
-<% } %>
+</c:if>
+<c:if test="${empty exception }">
+<h3>서블릿 오류발생 : ${message }</h3>
+</c:if>
 <a href="javascript:history.go(-1);">이전 페이지로 이동</a>
 </body>
 </html>

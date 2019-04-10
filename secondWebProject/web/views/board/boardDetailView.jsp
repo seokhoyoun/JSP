@@ -28,8 +28,8 @@ border="1" width="500">
 	<c:if test="${!empty board.boardOriginalFileName }">
 			<%-- <a href="/second/bfdown?ofile=${boardOriginalFileName }&rfile=${ boardRenameFileName} ">${boardOriginalFileName }</a> --%>
 			<c:url var="bfdown" value="/bfdown">
-				<c:param name="ofile" value="${boardOriginalFileName }"/>
-				<c:param name="rfile" value="${ boardRenameFileName}" />
+				<c:param name="ofile" value="${board.boardOriginalFileName }"/>
+				<c:param name="rfile" value="${ board.boardRenameFileName}" />
 			</c:url>
 			<a href="${bfdown }">다운로드</a>
 	</c:if>

@@ -50,7 +50,11 @@
 <td><textarea rows="7" cols="50" name="bcontent">${board.boardContent}</textarea></td></tr>
 <tr><th colspan="2">
 	<input type="submit" value="수정하기"> &nbsp;
-	<a href="/second/blist?page=${page }">[목록]</a>
+	<%-- <a href="/second/blist?page=${page }">[목록]</a> --%>
+	<c:url var="blist" value="/blist">
+		<c:param name="page" value="${page }"/>
+	</c:url>
+	<a href="${blist }">[목록]</a>
 </th></tr>
 </table></form>
 </c:if>

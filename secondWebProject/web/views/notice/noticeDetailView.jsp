@@ -17,7 +17,7 @@ function deleteNotice(){
 </script>
 </head>
 <body>
-<%@ include file="../common/header.jsp" %>
+<c:import url="../common/header.jsp" />
 <hr style="clear:both;">
 <br>
 <h2 align="center">${notice.noticeNo }번 공지글 상세보기</h2>
@@ -35,7 +35,12 @@ function deleteNotice(){
 	<th>첨부파일</th>
 	<td>
 	<c:if test="${!empty notice.originalFilePath } ">
-		<a href="/second/nfdown?ofile=${notice.originalFilePath }&rfile=${notice.renameFilePath}">${notice.originalFilePath }</a>
+		<%-- <a href="/second/nfdown?ofile=${notice.originalFilePath }&rfile=${notice.renameFilePath}">${notice.originalFilePath }</a> --%>
+		<c:url var="nfdown" value="/nfdown">
+			<c:param name="ofile" value="${notice.originalFilePath }"/>
+			<c:param name="rfile" value="${notice.renameFilePath }"/>
+		</c:url>
+		<a href="${nfdown }">${notice.originalFilePath }</a>
 	</c:if>
 	<c:if test="${empty notice.originalFilePath }">
 		첨부파일 없음
@@ -57,7 +62,7 @@ function deleteNotice(){
 </tr>
 </table>
 <hr>
-<%@ include file="../common/footer.jsp" %>
+<c:import url="../common/footer.jsp"/>
 </body>
 </html>
 
