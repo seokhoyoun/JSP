@@ -5,8 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>second</title>
-<script type="text/javascript" src="/second/resources/js/jquery-3.3.1.min.js"></script>
+<title>testmb</title>
+<script type="text/javascript" src="/testmb/resources/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
 $(function(){
 	//암호확인 입력상자가 focus가 사라졌을 때
@@ -33,7 +33,7 @@ $(function(){
 <hr style="clear:left;">
 <h1 align="center">${requestScope.member.userName} 님, 회원 정보 상세보기</h1>
 <br>
-<form action="/second/mupdate" method="post">
+<form action="/testmb/mupdate" method="post">
 <table width="650" align="center">
 	<tr height="40">
 		<th width="150">아이디</th>
@@ -145,9 +145,9 @@ $(function(){
 		<th colspan="2">
 		<input type="submit" value="수정하기"> &nbsp; 
 		<input type="reset" value="작성취소"> &nbsp; 
-		<a href="/second/mdel?userid=${member.userId }">탈퇴하기</a>
+		<a href="/testmb/mdel?userid=${member.userId }">탈퇴하기</a>
 		&nbsp; &nbsp;
-		<a href="/second/index.jsp">시작페이지로 이동</a>
+		<a href="/testmb/index.jsp">시작페이지로 이동</a>
 		</th>		
 	</tr>
 	</table>

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>second</title>
+<title>testmb</title>
 </head>
 <body>
 <c:if test="${!empty loginUser and loginUser.userId eq 'admin'}">
@@ -23,7 +23,7 @@ JSP 예외발생 : <%= exception.getMessage() %> <br>
 서블릿이 전달한 메세지 : ${message }  <br>
 </c:if>
 <br>
-<a href="/second/index.jsp">시작페이지로 이동</a> <br>
+<a href="/testmb/index.jsp">시작페이지로 이동</a> <br>
 <hr>
 <c:import url="../common/footer.jsp"/>
 </body>
