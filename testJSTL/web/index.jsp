@@ -12,5 +12,6 @@
 	<h4><a href="views/test/testCore.jsp"> jstl core 라이브러리 테스트</a></h4>
 	<h4><a href="views/test/testFmt.jsp"> jstl format 라이브러리 테스트</a></h4>
 	<h4><a href="views/test/testFunctions.jsp"> jstl function 라이브러리 테스트</a></h4>
+	<h4><a href="views/test/testbilly.jsp"> billy</a></h4>
 </body>
 </html>
