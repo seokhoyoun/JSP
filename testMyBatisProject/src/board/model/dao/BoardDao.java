@@ -1,6 +1,7 @@
 package board.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
@@ -57,18 +58,30 @@ public class BoardDao {
 	}
 
 	public ArrayList<Board> selectDateList(SqlSession session, SearchDate date, int currentPage, int limit) {
-		RowBounds rb = new RowBounds(currentPage, limit);
-		List<Board> list = session.selectList("boardMapper.selectDateList", date, rb); 
+		HashMap<String, Object> hm = new HashMap<>();
+		hm.put("beginDate",date.getBegin());
+		hm.put("endDate", date.getEnd());
+		hm.put("start", (currentPage-1)*limit +1);
+		hm.put("end", currentPage * limit);
+		List<Board> list = session.selectList("boardMapper.selectDateList", hm ); 
 		return (ArrayList<Board>) list;
 	}
 
 	public ArrayList<Board> selectWriterList(SqlSession session, String writer, int currentPage, int limit) {
-		List<Board> list = session.selectList("boardMapper.selectWriterList", writer, new RowBounds(currentPage, limit)); 
+		HashMap<String, Object> hm = new HashMap<>();
+		hm.put("writer", writer);
+		hm.put("start", (currentPage-1)*limit +1);
+		hm.put("end", currentPage * limit);
+		List<Board> list = session.selectList("boardMapper.selectWriterList",hm ); 
 		return (ArrayList<Board>) list;
 	}
 
 	public ArrayList<Board> selectTitleList(SqlSession session, String title, int currentPage, int limit) {
-		List<Board> list = session.selectList("boardMapper.selectTitleList", title, new RowBounds(currentPage, limit)); 
+		HashMap<String, Object> hm = new HashMap<>();
+		hm.put("title", title);
+		hm.put("start", (currentPage-1)*limit +1);
+		hm.put("end", currentPage * limit);
+		List<Board> list = session.selectList("boardMapper.selectTitleList", hm); 
 		return (ArrayList<Board>) list;
 	}
 

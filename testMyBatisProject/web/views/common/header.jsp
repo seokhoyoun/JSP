@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>second</title>
+<title>testmb</title>
 <style type="text/css">
 header nav ul { list-style: none; } 
 header nav ul li {
@@ -34,9 +34,9 @@ header nav ul li a:hover {
 <header>
 <nav>
 <ul>
-	<li><a href="/second/index.jsp">home</a></li>
-	<li><a href="/second/nlist">공지사항</a></li>
-	<li><a href="/second/blist?page=1">게시글</a></li>
+	<li><a href="/testmb/index.jsp">home</a></li>
+	<li><a href="/testmb/nlist">공지사항</a></li>
+	<li><a href="/testmb/blist?page=1">게시글</a></li>
 	<li><a href="">메뉴</a></li>
 	<li><a href="">메뉴</a></li>
 </ul>

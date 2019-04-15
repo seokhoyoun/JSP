@@ -62,7 +62,7 @@
 		</choose>
 	</insert>
 	
-	<select id="selcetTop5Write" resultMap="resultNotice">
+	<select id="selectTop5Write" resultMap="resultNotice">
 		<![CDATA[
 			SELECT * 
 			FROM (	SELECT ROWNUM RNUM, NOTICENO, 

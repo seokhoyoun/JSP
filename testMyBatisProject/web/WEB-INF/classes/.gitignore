@@ -1,6 +1,7 @@
-/common/
-/myBatis/
 /board/
-/member/
-/notice/
+/common/
 /mappers/
+/member/
+/myBatis/
+/notice/
+/mybatis/
