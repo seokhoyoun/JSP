@@ -33,5 +33,7 @@
 	<!-- 주의 : 등록된 매퍼 파일 안의 쿼리문 오류가 있으면
 		톰캣 실행 안 됨. config파일도 오류로 처리됨. -->
 		<mapper resource="mappers/member-mapper.xml" />
+		<mapper resource="mappers/notice-mapper.xml" />
+		<mapper resource="mappers/board-mapper.xml" />
 	</mappers>
 </configuration>

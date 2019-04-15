@@ -1,13 +1,15 @@
 package board.model.service;
 
-import static common.JDBCTemplate.*;
-
+import static common.SqlSessionTemplate.getSession;
 import java.sql.Connection;
 import java.sql.Date;
 import java.util.ArrayList;
 
+import org.apache.ibatis.session.SqlSession;
+
 import board.model.dao.BoardDao;
 import board.model.vo.Board;
+import notice.model.vo.SearchDate;
 
 public class BoardService {
 	private BoardDao bdao = new BoardDao();
@@ -15,127 +17,126 @@ public class BoardService {
 	public BoardService() {}
 
 	public int getListCount() {
-		Connection conn = getConnection();
-		int listCount = bdao.getListCount(conn);
-		close(conn);
+		SqlSession session = getSession();
+		int listCount = bdao.getListCount(session);
+		session.close();
 		return listCount;
 	}
 
 	public ArrayList<Board> selectList(int currentPage, int limit) {
-		Connection conn = getConnection();
-		ArrayList<Board> list = bdao.selectList(conn, currentPage, limit);
-		close(conn);
+		SqlSession session = getSession();
+		ArrayList<Board> list = bdao.selectList(session, currentPage, limit);
+		session.close();
 		return list;
 	}
 
 	public void addReadCount(int boardNum) {
-		Connection conn = getConnection();
-		int result = bdao.addReadCount(conn, boardNum);
+		SqlSession session = getSession();
+		int result = bdao.addReadCount(session, boardNum);
 		if(result > 0)
-			commit(conn);
+			session.commit();
 		else
-			rollback(conn);
-		close(conn);
+			session.rollback();
+		session.close();
 	}
 
 	public Board selectBoard(int boardNum) {
-		Connection conn = getConnection();
-		Board board = bdao.selectBoard(conn, boardNum);
-		close(conn);
+		SqlSession session = getSession();
+		Board board = bdao.selectBoard(session, boardNum);
+		session.close();
 		return board;
 	}
 
 	public int insertBoard(Board board) {
-		Connection conn = getConnection();
-		int result = bdao.insertBoard(conn, board);
+		SqlSession session = getSession();
+		int result = bdao.insertBoard(session, board);
 		if(result > 0)
-			commit(conn);
+			session.commit();
 		else
-			rollback(conn);
-		close(conn);
+			session.rollback();
+		session.close();
 		return result;
 	}
 
 	public void updateReplySeq(Board replyBoard) {
-		Connection conn = getConnection();
-		int result = bdao.updateReplySeq(conn, replyBoard);
+		SqlSession session = getSession();
+		int result = bdao.updateReplySeq(session, replyBoard);
 		if(result > 0)
-			commit(conn);
+			session.commit();
 		else
-			rollback(conn);
-		close(conn);
-		return;
+			session.rollback();
+		session.close();
 	}
 
 	public int insertReply(Board replyBoard) {
-		Connection conn = getConnection();
-		int result = bdao.insertReply(conn, replyBoard);
+		SqlSession session = getSession();
+		int result = bdao.insertReply(session, replyBoard);
 		if(result > 0)
-			commit(conn);
+			session.commit();
 		else
-			rollback(conn);
-		close(conn);
+			session.rollback();
+		session.close();
 		return result;
 	}
 
 	public int updateReply(Board board) {
-		Connection conn = getConnection();
-		int result = bdao.updateReply(conn, board);
+		SqlSession session = getSession();
+		int result = bdao.updateReply(session, board);
 		if(result > 0)
-			commit(conn);
+			session.commit();
 		else
-			rollback(conn);
-		close(conn);
+			session.rollback();
+		session.close();
 		return result;
 	}
 
 	public int updateBoard(Board board) {
-		Connection conn = getConnection();
-		int result = bdao.updateBoard(conn, board);
+		SqlSession session = getSession();
+		int result = bdao.updateBoard(session, board);
 		if(result > 0)
-			commit(conn);
+			session.commit();
 		else
-			rollback(conn);
-		close(conn);
+			session.rollback();
+		session.close();
 		return result;
 	}
 
 	public int deleteBoard(int boardNum) {
-		Connection conn = getConnection();
-		int result = bdao.deleteBoard(conn, boardNum);
+		SqlSession session = getSession();
+		int result = bdao.deleteBoard(session, boardNum);
 		if(result > 0)
-			commit(conn);
+			session.commit();
 		else
-			rollback(conn);
-		close(conn);
+			session.rollback();
+		session.close();
 		return result;
 	}
 	
 	public ArrayList<Board> boardSearchTitle(String title, int currentPage, int limit){
-		Connection conn = getConnection();
-		ArrayList<Board> list = bdao.selectTitleList(conn, title, currentPage, limit);
-		close(conn);
+		SqlSession session = getSession();
+		ArrayList<Board> list = bdao.selectTitleList(session,title, currentPage, limit);
+		session.close();
 		return list;
 	}
 	
 	public ArrayList<Board> boardSearchWriter(String writer, int currentPage, int limit){
-		Connection conn = getConnection();
-		ArrayList<Board> list = bdao.selectWriterList(conn, writer, currentPage, limit);
-		close(conn);
+		SqlSession session = getSession();
+		ArrayList<Board> list = bdao.selectWriterList(session,writer, currentPage, limit);
+		session.close();
 		return list;
 	}
 	
-	public ArrayList<Board> boardSearchDate(Date begin, Date end, int currentPage, int limit){
-		Connection conn = getConnection();
-		ArrayList<Board> list = bdao.selectDateList(conn, begin, end, currentPage, limit);
-		close(conn);
+	public ArrayList<Board> boardSearchDate(SearchDate date, int currentPage, int limit){
+		SqlSession session = getSession();
+		ArrayList<Board> list = bdao.selectDateList(session,date, currentPage, limit);
+		session.close();
 		return list;
 	}
 
 	public ArrayList<Board> selectReadCountTop5() {
-		Connection conn = getConnection();
-		ArrayList<Board> list = bdao.selectReadCountTop5(conn);
-		close(conn);
+		SqlSession session = getSession();
+		ArrayList<Board> list = bdao.selectReadCountTop5(session);
+		session.close();
 		return list;
 	}
 	

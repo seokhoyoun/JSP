@@ -1,14 +1,16 @@
 package notice.model.service;
 
-import java.sql.Connection;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.apache.ibatis.session.SqlSession;
+
 import notice.model.dao.NoticeDao;
 import notice.model.vo.Notice;
+import notice.model.vo.SearchDate;
 
-import static common.JDBCTemplate.*;
+import static common.SqlSessionTemplate.getSession;
 
 public class NoticeService {
 	private NoticeDao ndao = new NoticeDao();
@@ -16,81 +18,79 @@ public class NoticeService {
 	public NoticeService() {}
 	
 	public HashMap<Integer, Notice> selectMap(){
-		Connection conn = getConnection();
-		HashMap<Integer, Notice> list = ndao.selectMap(conn);
-		close(conn);
+		SqlSession session = getSession(); 
+		HashMap<Integer, Notice> list = ndao.selectMap(session);
+		session.close();
 		return list;
 	}
 	
 	public Notice selectOne(int noticeNo) {
-		Connection conn = getConnection();
-		Notice notice = ndao.selectOne(conn, noticeNo);
-		close(conn);
+		SqlSession session = getSession(); 
+		Notice notice = ndao.selectOne(session, noticeNo);
+		session.close();
 		return notice;
 	}
 	
 	public int insertNotice(Notice notice) {
-		Connection conn = getConnection();
-		int result = ndao.insertNotice(conn, notice);
+		SqlSession session = getSession();
+		int result = ndao.insertNotice(session, notice);
 		if(result > 0)
-			commit(conn);
+			session.commit();
 		else
-			rollback(conn);
-		close(conn);
+			session.rollback();
+		session.close();
 		return result;
 	}
 	
 	public int updateNotice(Notice notice) {
-		Connection conn = getConnection();
-		int result = ndao.updateNotice(conn, notice);
+		SqlSession session = getSession();
+		int result = ndao.updateNotice(session, notice);
 		if(result > 0)
-			commit(conn);
+			session.commit();
 		else
-			rollback(conn);
-		close(conn);
+			session.rollback();
+		session.close();
 		return result;
 	}
 	
 	public int deleteNotice(int noticeNo) {
-		Connection conn = getConnection();
-		int result = ndao.deleteNotice(conn, noticeNo);
+		SqlSession session = getSession();
+		int result = ndao.deleteNotice(session, noticeNo);
 		if(result > 0)
-			commit(conn);
+			session.commit();
 		else
-			rollback(conn);
-		close(conn);
+			session.rollback();
+		session.close();
 		return result;
 	}
 
 	public HashMap<Integer, Notice> selectSearchTitle(String noticeTitle) {
-		Connection conn = getConnection();
-		HashMap<Integer, Notice> map = ndao.selectSearchTitle(conn, noticeTitle);
-		close(conn);
-		return map;
+		SqlSession session = getSession(); 
+		HashMap<Integer, Notice> list = ndao.selectSearchTitle(session, noticeTitle);
+		session.close();
+		return list;
 	}
 
 	public HashMap<Integer, Notice> selectSearchWriter(
 			String noticeWriter) {
-		Connection conn = getConnection();
-		HashMap<Integer, Notice> map = 
-				ndao.selectSearchWriter(conn, noticeWriter);
-		close(conn);
-		return map;
+		SqlSession session = getSession(); 
+		HashMap<Integer, Notice> list = ndao.selectSearchWriter(session, noticeWriter);
+		session.close();
+		return list;
 	}
 
 	public HashMap<Integer, Notice> selectSearchDate(
-			Date beginDate, Date endDate) {
-		Connection conn = getConnection();
-		HashMap<Integer, Notice> map = 
-				ndao.selectSearchDate(conn, beginDate, endDate);
-		close(conn);
-		return map;
+			SearchDate date) {
+		SqlSession session = getSession(); 
+		HashMap<Integer, Notice> list = ndao.selectSearchDate(session, date);
+		session.close();
+		return list;
 	}
 
 	public ArrayList<Notice> selectTop5Write() {
-		Connection conn = getConnection();
-		ArrayList<Notice> list = ndao.selectTop5Write(conn);
-		close(conn);
+		SqlSession session = getSession(); 
+		ArrayList<Notice> list = ndao.selectTop5Write(session);
+		session.close();
 		return list;
 	}
 }
